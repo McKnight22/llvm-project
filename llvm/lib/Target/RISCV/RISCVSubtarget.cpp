@@ -46,6 +46,11 @@ static cl::opt<int> RVVVectorBitsMin(
              "autovectorization with fixed width vectors."),
     cl::init(-1), cl::Hidden);
 
+static cl::opt<unsigned> RVVVectorELENMax(
+    "riscv-v-fixed-length-vector-elen-max",
+    cl::desc("The maximum ELEN value to use for fixed length vectors."),
+    cl::init(64), cl::Hidden);
+
 static cl::opt<unsigned> RVVVectorLMULMax(
     "riscv-v-fixed-length-vector-lmul-max",
     cl::desc("The maximum LMUL value to use for fixed length vectors. "

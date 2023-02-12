@@ -40,6 +40,19 @@ __interceptor_setjmp:
   CFI_ENDPROC
 ASM_SIZE(__interceptor_setjmp)
 
+#if SANITIZER_ANDROID
+// Bionic also defines a function `setjmp` that calls `sigsetjmp` saving the
+// current signal.
+.global __interceptor_setjmp_bionic
+ASM_TYPE_FUNCTION(__interceptor_setjmp_bionic)
+__interceptor_setjmp_bionic:
+  CFI_STARTPROC
+  addi	x11, x0, 1
+  j	__interceptor_sigsetjmp
+  CFI_ENDPROC
+ASM_SIZE(__interceptor_setjmp_bionic)
+#endif
+
 .global __interceptor_sigsetjmp
 ASM_TYPE_FUNCTION(__interceptor_sigsetjmp)
 __interceptor_sigsetjmp:
